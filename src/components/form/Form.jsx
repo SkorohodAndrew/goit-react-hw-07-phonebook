@@ -3,61 +3,55 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from '../../redux/operations';
 import { getItems } from '../../redux/selectors';
-import { FormBox, ButtonAdd, InputBox, LabelBox } from './FormStyled';
-
+import { InputBox, LabelBox, FormBox, ButtonAdd } from './FormStyled';
 
 const nameInputId = nanoid(5);
-const numberInputId = nanoid(8) 
-
+const numberInputId = nanoid(8);
 
 const Form = () => {
-
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
 
   const items = useSelector(getItems);
   const dispatch = useDispatch();
 
-  const handleInputChange = (e) => {
-    const {name, value} = e.currentTarget;  
-    
-    switch(name) {
-      case "number":
-        return setPhone(value); 
-      case "name":
-        return setName(value); 
+  const handleInputChange = e => {
+    const { name, value } = e.currentTarget;
+
+    switch (name) {
+      case 'number':
+        return setPhone(value);
+      case 'name':
+        return setName(value);
       default:
-      return;
+        return;
     }
   };
 
-  
   const chekingContacts = () => {
-    const findContact = items.find((item) => item.name === name);
-    const findNumber = items.find((item) => item.phone === phone);
+    const findContact = items.find(item => item.name === name);
+    const findNumber = items.find(item => item.phone === phone);
 
-    if (findContact) { 
-      alert(`${name} is already in contacts`);      
-    } 
-      else if (findNumber) { 
-      alert(`${phone} is already in contacts`);      
-    }             
+    if (findContact) {
+      alert(`${name} is already in contacts`);
+    } else if (findNumber) {
+      alert(`${phone} is already in contacts`);
+    }
   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    chekingContacts()
-    dispatch(addContact({name, phone}));
+    chekingContacts();
+    dispatch(addContact({ name, phone }));
     setName('');
     setPhone('');
-      };
+  };
 
-
-  return(
+  return (
     <FormBox>
       <form onSubmit={handleSubmit}>
-        <LabelBox>Name
+        <LabelBox>
+          Name
           <InputBox
             type="text"
             name="name"
@@ -65,12 +59,13 @@ const Form = () => {
             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
             required
             onChange={handleInputChange}
-            value={name}    
-            id={nameInputId}          
-          /> 
+            value={name}
+            id={nameInputId}
+          />
         </LabelBox>
-          
-        <LabelBox>Number
+
+        <LabelBox>
+          Number
           <InputBox
             type="tel"
             name="number"
@@ -78,15 +73,15 @@ const Form = () => {
             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
             required
             onChange={handleInputChange}
-            value={phone}  
-            id={numberInputId}            
-          />  
+            value={phone}
+            id={numberInputId}
+          />
         </LabelBox>
-      
+
         <ButtonAdd type="submit">Add contact</ButtonAdd>
       </form>
-    </FormBox>  
-  )
-}
+    </FormBox>
+  );
+};
 
 export default Form;

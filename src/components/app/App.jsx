@@ -1,23 +1,17 @@
-import Form from "../form/Form";
-import Contacts from "../contacts/Contacts";
-import Filter from "../filter/Filter";
-import { DivBox, TitleBox, SecondaryTitleBox } from "./AppStyled";
+import Form from '../form/Form';
+import Contacts from '../contacts/Contacts';
+import Filter from '../filter/Filter';
+import { Container } from './AppStyled';
 
+export function App() {
+  return (
+    <Container>
+      <h1>Phonebook</h1>
 
-export function App () {
-
-    return (
-      <DivBox>
-         
-       <TitleBox>Phonebook</TitleBox>
-
-       <Form/>
-        <SecondaryTitleBox>Contacts</SecondaryTitleBox>
-
-       <Contacts/>
-       <Filter/>
-
-      </DivBox>
-    );
-  };
-
+      <Form />
+      <h1>Contacts</h1>
+      <Filter />
+      <Contacts />
+    </Container>
+  );
+}
